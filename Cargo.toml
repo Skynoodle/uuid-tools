@@ -5,6 +5,7 @@ authors = ["Skynoodle <iainrobert.maciver@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 description = "Simple command-line tooling for generating and inspecting UUIDs"
+readme = "README.md"
 repository = "https://github.com/Skynoodle/uuid-tools"
 keywords = ["uuid", "cli"]
 categories = ["command-line-utilities"]
