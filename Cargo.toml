@@ -1,0 +1,13 @@
+[package]
+name = "uuid-tools"
+version = "0.1.0"
+authors = ["Skynoodle <iainrobert.maciver@gmail.com>"]
+edition = "2018"
+
+[[bin]]
+name = "uuid"
+
+[dependencies]
+uuid = { version = "0.8.1", features = ["serde", "v1", "v3", "v4", "v5"] }
+structopt = "0.3.16"
+mac_address = "1.0.3"
