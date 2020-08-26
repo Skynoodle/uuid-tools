@@ -66,16 +66,7 @@ struct Opt {
 }
 
 fn parse_uuid(s: &str) -> Result<Uuid, uuid::Error> {
-    let s = if (34..=38).contains(&s.len())
-        && s.chars()
-            .next()
-            .expect("could not get first character of non-empty string")
-            == '{'
-        && s.chars()
-            .last()
-            .expect("could not get last character of non-empty string")
-            == '}'
-    {
+    let s = if (34..=38).contains(&s.len()) && s.starts_with('{') && s.ends_with('}') {
         &s[1..(s.len() - 1)]
     } else {
         s
@@ -169,8 +160,7 @@ fn main() {
         )
         .expect("Could not write to stderr");
 
-        writeln!(stderr)
-        .expect("Could not write to stderr");
+        writeln!(stderr).expect("Could not write to stderr");
         uuid
     } else {
         match options.version_mode {
