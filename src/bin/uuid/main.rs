@@ -3,11 +3,64 @@ use structopt::StructOpt;
 use uuid::Uuid;
 
 #[derive(StructOpt, Debug, Clone)]
+/// A simple command-line tool for generating and inspecting UUIDs
+///
+/// By default, uuid will accept an optional uuid argument, write all
+/// successfully decoded or generated uuids to stdout, write other diagnostic
+/// information to stderr, and return a success or failure exit code indicating
+/// the validity of a provided uuid. Use the long form `--help` flag for more
+/// detailed help output.
 struct Opt {
+    /// A uuid in any of the supported formats (see `-o <output-format>`
+    /// documentation for details). If omitted, `uuid` will generate a new
+    /// uuid.
     #[structopt(parse(try_from_str = parse_uuid))]
     uuid: Option<Uuid>,
+    /// The version of uuid to generate or inspect
+    ///
+    /// When used to inspect an existing uuid, this rejects uuids of different
+    /// versions - in this case `uuid` will return a failure exit code, and will
+    /// not write the decoded uuid to stdout.
+    ///
+    /// Supported versions for inspecting:
+    ///
+    /// - `0`: A nil (all-zeros) uuid
+    ///
+    /// - `1`: A datetime + MAC address uuid
+    ///
+    /// - `2`: A datetime + MAC address 'DCE security' uuid
+    ///
+    /// - `3`: An MD5-hashed namespace + name uuid
+    ///
+    /// - `4`: A random uuid
+    ///
+    /// - `5`: A SHA1-hashed namespace + name uuid
+    ///
+    /// Supported versions for generating:
+    ///
+    /// - `0`: A nil (all-zeros) uuid
+    ///
+    /// - `4`: A random uuid
+    ///
     #[structopt(short = "v", long = "version")]
     version_mode: Option<VersionMode>,
+    /// The output format to use when writing the generated or decoded uuid to
+    /// stdout.
+    ///
+    /// Supported formats (these also correspond to formats for decoding):
+    ///
+    /// - `simple`: A compact form with no extra characters
+    ///     (e.g `5c16fcb176ba4b068fdf34a6aeb478c5`)
+    ///
+    /// - `hyphenated`: Standard uuid form including hyphens
+    ///     (e.g `5c16fcb1-76ba-4b06-8fdf-34a6aeb478c5`)
+    ///
+    /// - `urn`: The Unified Resource Name form of a uuid
+    ///     (e.g `urn:uuid:5c16fcb1-76ba-4b06-8fdf-34a6aeb478c5`)
+    ///
+    /// - `ms`: hyphenated form surrounded by braces, as used by microsoft
+    ///     (e.g `{5c16fcb1-76ba-4b06-8fdf-34a6aeb478c5}`)
+    ///
     #[structopt(short = "o", long = "output-format")]
     output_format: Option<Format>,
 }
