@@ -320,7 +320,7 @@ dependencies = [
 
 [[package]]
 name = "uuid-tools"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "mac_address",
  "structopt",
