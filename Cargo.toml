@@ -17,3 +17,4 @@ name = "uuid"
 uuid = { version = "0.8.1", features = ["serde", "v1", "v3", "v4", "v5"] }
 structopt = "0.3.16"
 mac_address = "1.0.3"
+rand = "0.7.3"
